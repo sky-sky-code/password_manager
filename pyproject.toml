@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "password-manager"
+version = "0.1.0"
+description = ""
+authors = ["Сайдулла Пашаев <saidyllapashaev@mail.ru>"]
+readme = "README.md"
+packages = [{include = "password_manager"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.1"
+djangorestframework = "^3.15.2"
+drf-spectacular = "^0.27.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
