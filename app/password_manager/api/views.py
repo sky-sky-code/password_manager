@@ -1,8 +1,6 @@
 from cryptography.fernet import Fernet
 from django.conf import settings
 from django.http import Http404
-from rest_framework.decorators import api_view
-from rest_framework.generics import get_object_or_404
 
 from password_manager.models import StoragePassword
 from .serializers import SerializerReadPassword, SerializerCreatePassword
