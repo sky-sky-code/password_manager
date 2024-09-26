@@ -38,5 +38,6 @@ services:
       && curl -sSl https://install.python-poetry.org | python3 -
       && export PATH=/root/.local/bin:$PATH
       && poetry install
+      && pytest
       && poetry run python manage.py migrate
       && poetry run python manage.py runserver 0.0.0.0:8080"
