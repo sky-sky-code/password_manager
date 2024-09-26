@@ -4,6 +4,7 @@ import environ
 ROOT_DIR = Path(__file__).resolve().parent.parent
 APP_DIR = ROOT_DIR / 'app'
 SECRET_KEY = 'django-insecure-ugchrbglhuohbq!^##bauvux$=e^1m!59)1_8i@)_fc$u6)%0z'
+SECRET_PASS_KEY = 'C_GxfR2SwK2hFTVm68NrmQ_d88RnB7hD1qVsDF82its='
 
 env = environ.Env(**{
     'DATABASE_URL': (str, 'postgres://dev:dev@127.0.0.1:5432/pm'),
@@ -42,6 +43,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
