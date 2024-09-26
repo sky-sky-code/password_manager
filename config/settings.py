@@ -7,11 +7,12 @@ SECRET_KEY = 'django-insecure-ugchrbglhuohbq!^##bauvux$=e^1m!59)1_8i@)_fc$u6)%0z
 SECRET_PASS_KEY = 'C_GxfR2SwK2hFTVm68NrmQ_d88RnB7hD1qVsDF82its='
 
 env = environ.Env(**{
-    'DATABASE_URL': (str, 'postgres://dev:dev@127.0.0.1:5432/pm'),
+    'DATABASE_HOST': (str, '127.0.0.1'),
     'DEBUG': (bool, True),
     'ALLOWED_HOSTS': (list, ['localhost', '127.0.0.1']),
 })
 
+env.scheme.update({"DATABASE_URL": (str, f'postgres://dev:dev@{env("DATABASE_HOST")}:5432/pm')})
 environ.Env.read_env(ROOT_DIR / '.env')
 
 DEBUG = env('DEBUG')
@@ -67,7 +68,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASE_URL = env('DATABASE_URL')
 
 DATABASES = {
     'default': env.db()
