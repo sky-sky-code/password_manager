@@ -23,7 +23,7 @@ class PasswordRetrieveCreateAPIView(GenericAPIView):
         try:
             obj = StoragePassword.objects.get_de_password(service_name=kwargs['service_name'])
             serializer = self.get_serializer(obj)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except:
             raise Http404
 
@@ -32,12 +32,15 @@ class PasswordRetrieveCreateAPIView(GenericAPIView):
         self.serializer_class = SerializerCreatePassword
         serializer = self.get_serializer(data=request.data | kwargs)
         serializer.is_valid(raise_exception=True)
-        fernet = Fernet(settings.SECRET_PASS_KEY)
-
         exists_service = StoragePassword.objects.filter(service_name=kwargs['service_name']).exists()
-        if exists_service:
-            pass
+
+        fernet = Fernet(settings.SECRET_PASS_KEY)
         secret_password = fernet.encrypt(request.data['password'].encode()).decode('utf8')
+        if exists_service:
+            obj_pass = StoragePassword.objects.get(service_name=kwargs['service_name'])
+            obj_pass.password = secret_password
+            obj_pass.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         StoragePassword.objects.create(
             service_name=kwargs['service_name'],
             password=secret_password

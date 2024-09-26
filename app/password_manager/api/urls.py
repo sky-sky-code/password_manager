@@ -4,6 +4,7 @@ from .views import PasswordListAPIView, PasswordRetrieveCreateAPIView
 
 
 urlpatterns = [
-    path('password/<str:service_name>/', PasswordRetrieveCreateAPIView.as_view()),
-    re_path('password/(?:/(?P<service_name>\b))?$', PasswordListAPIView.as_view())
+    # rcu - retrieve, create, update
+    path('password/<str:service_name>/', PasswordRetrieveCreateAPIView.as_view(), name='password_rcu'),
+    re_path('password/(?:/(?P<service_name>\b))?$', PasswordListAPIView.as_view(), name='password_list')
 ]
